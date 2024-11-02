@@ -257,11 +257,9 @@ bprime = \x -> fix (\go i ->
 
 bLargestPrimeFactor = \x0 -> fix (\go x i s ->
   bcmp i x
-    (unBool (bprime i)
-      (unPair (bdiv x i) (\q r ->
-        unBool (biszero r) (go q i i) (go x (badd i b1) s)))
-      (go x (badd i b1) s))
-    (unBool (bprime x) x s)
+    (unPair (bdiv x i) (\q r ->
+      unBool (biszero r) (go q i i) (go x (badd i b1) s)))
+    x
     s
   )
   x0
@@ -299,10 +297,8 @@ b600851475143 = d3 (d4 (d1 (d5 (d7 (d4 (d1 (d5 (d8 (d0 (d0 (d6 b0)))))))))))
 
 pe3 = bLargestPrimeFactor b600851475143
 
--- This one takes a while...
 -- >>> pe3
 -- 6857
 
--- Running this with optmizations takes about 4 seconds on my machine
 main :: IO ()
 main = print pe3
